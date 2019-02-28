@@ -10,10 +10,24 @@ z0  z1  ... zn
 import math
 
 def make_translate( x, y, z ):
-    pass
+    m = new_matrix()
+    m[0][0]=1
+    m[1][1]=1
+    m[2][2]=1
+    m[3][3]=1
+    m[3][0]=x
+    m[3][1]=y
+    m[3][2]=z
 
 def make_scale( x, y, z ):
-    pass
+    m = new_matrix()
+    m[0][0]=x
+    m[1][1]=y
+    m[2][2]=z
+    m[3][3]=1
+    return m
+
+        
 
 def make_rotX( theta ):
     pass
