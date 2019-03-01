@@ -49,7 +49,7 @@ def parse_file( fname, points, transform, screen, color ):
 			scale = make_scale(int(l[i+1]),int(l[i+2]),int(l[i+3]))
 			matrix_mult(scale,transform)
 			i+=4
-		if l[i] == 'translate':
+		if l[i] == 'move':
 			translate = make_translate(int(l[i+1]),int(l[i+2]),int(l[i+3]))
 			matrix_mult(translate,transform)
 			i+=4
