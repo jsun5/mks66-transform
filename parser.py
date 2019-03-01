@@ -37,30 +37,31 @@ def parse_file( fname, points, transform, screen, color ):
     f = open(fname,"r")
     s = f.read()
     l = s.split()
-	while i < len(l):
+    i=0
+    while i < len(l):
 		if l[i] == 'line':
-			add_edge(points,l[i+1],l[i+2],l[i+3],l[i+4],l[i+5],l[i+6])
+			add_edge(points,int(l[i+1]),int(l[i+2]),int(l[i+3]),int(l[i+4]),int(l[i+5]),int(l[i+6]))
 			i+=7
 		if l[i] == 'ident':
 			ident(transform)
 			i+=1
 		if l[i] == 'scale':
-			scale = make_scale(l[i+1],l[i+2],l[i+3])
+			scale = make_scale(int(l[i+1]),int(l[i+2]),int(l[i+3]))
 			matrix_mult(scale,transform)
 			i+=4
 		if l[i] == 'translate':
-			translate = make_translate(l[i+1],l[i+2],l[i+3])
+			translate = make_translate(int(l[i+1]),int(l[i+2]),int(l[i+3]))
 			matrix_mult(translate,transform)
 			i+=4
 		if l[i] == 'rotate':
 			if(l[i+1]=='x'):
-				rotX = make_rotX(l[i+2])
+				rotX = make_rotX(int(l[i+2]))
 				matrix_mult(rotX,transform)
 			if(l[i+1]=='y'):
-				rotY = make_rotY(l[i+2])
+				rotY = make_rotY(int(l[i+2]))
 				matrix_mult(rotY,transform)
 			if(l[i+1]=='z'):
-				rotZ = make_rotZ(l[i+2])
+				rotZ = make_rotZ(int(l[i+2]))
 				matrix_mult(rotZ,transform)
 			i+=3
 		if l[i] == 'apply':
@@ -75,7 +76,7 @@ def parse_file( fname, points, transform, screen, color ):
 			clear_screen(screen)
 			draw_lines(points,screen,color)
 			display(screen)
-			save_extension(screen, l[i+1])
+			save_extension(screen, int(l[i+1]))
 			i+=2
 		if l[i] == 'quit':
 			f.close()
