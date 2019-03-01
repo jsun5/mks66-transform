@@ -63,5 +63,20 @@ def parse_file( fname, points, transform, screen, color ):
 				rotZ = make_rotZ(l[i+2])
 				matrix_mult(rotZ,transform)
 			i+=3
-	
-    pass
+		if l[i] == 'apply':
+			matrix_mult(transform,points)
+			i+=1
+		if l[i] == 'display':
+			clear_screen(screen)
+			draw_lines(points,screen,color)
+			display(screen)
+			i+=1
+		if l[i] == 'save':
+			clear_screen(screen)
+			draw_lines(points,screen,color)
+			display(screen)
+			save_extension(screen, l[i+1])
+			i+=2
+		if l[i] == 'quit':
+			f.close()
+    		pass
