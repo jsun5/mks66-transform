@@ -36,5 +36,32 @@ See the file script for an example of the file format
 def parse_file( fname, points, transform, screen, color ):
     f = open(fname,"r")
     s = f.read()
-    listStrings = "\n".split(s)
+    l = s.split()
+	while i < len(l):
+		if l[i] == 'line':
+			add_edge(points,l[i+1],l[i+2],l[i+3],l[i+4],l[i+5],l[i+6])
+			i+=7
+		if l[i] == 'ident':
+			ident(transform)
+			i+=1
+		if l[i] == 'scale':
+			scale = make_scale(l[i+1],l[i+2],l[i+3])
+			matrix_mult(scale,transform)
+			i+=4
+		if l[i] == 'translate':
+			translate = make_translate(l[i+1],l[i+2],l[i+3])
+			matrix_mult(translate,transform)
+			i+=4
+		if l[i] == 'rotate':
+			if(l[i+1]=='x'):
+				rotX = make_rotX(l[i+2])
+				matrix_mult(rotX,transform)
+			if(l[i+1]=='y'):
+				rotY = make_rotY(l[i+2])
+				matrix_mult(rotY,transform)
+			if(l[i+1]=='z'):
+				rotZ = make_rotZ(l[i+2])
+				matrix_mult(rotZ,transform)
+			i+=3
+	
     pass
