@@ -2,6 +2,8 @@ from display import *
 from matrix import *
 from draw import *
 
+#Credit to Andrew Shao, who I worked with during both lab days!
+
 """
 Goes through the file named filename and performs all of the actions listed in that file.
 The file follows the following format:
@@ -39,45 +41,47 @@ def parse_file( fname, points, transform, screen, color ):
     l = s.split()
     i=0
     while i < len(l):
-		if l[i] == 'line':
-			add_edge(points,int(l[i+1]),int(l[i+2]),int(l[i+3]),int(l[i+4]),int(l[i+5]),int(l[i+6]))
-			i+=7
-		if l[i] == 'ident':
-			ident(transform)
-			i+=1
-		if l[i] == 'scale':
-			scale = make_scale(int(l[i+1]),int(l[i+2]),int(l[i+3]))
-			matrix_mult(scale,transform)
-			i+=4
-		if l[i] == 'move':
-			translate = make_translate(int(l[i+1]),int(l[i+2]),int(l[i+3]))
-			matrix_mult(translate,transform)
-			i+=4
-		if l[i] == 'rotate':
-			if(l[i+1]=='x'):
-				rotX = make_rotX(int(l[i+2]))
-				matrix_mult(rotX,transform)
-			if(l[i+1]=='y'):
-				rotY = make_rotY(int(l[i+2]))
-				matrix_mult(rotY,transform)
-			if(l[i+1]=='z'):
-				rotZ = make_rotZ(int(l[i+2]))
-				matrix_mult(rotZ,transform)
-			i+=3
-		if l[i] == 'apply':
-			matrix_mult(transform,points)
-			i+=1
-		if l[i] == 'display':
-			clear_screen(screen)
-			draw_lines(points,screen,color)
-			display(screen)
-			i+=1
-		if l[i] == 'save':
-			clear_screen(screen)
-			draw_lines(points,screen,color)
-			display(screen)
-			save_extension(screen, int(l[i+1]))
-			i+=2
-		if l[i] == 'quit':
-			f.close()
-    		pass
+        if l[i] == 'line':
+            add_edge(points,int(l[i+1]),int(l[i+2]),int(l[i+3]),int(l[i+4]),int(l[i+5]),int(l[i+6]))
+            i+=7
+        if l[i] == 'ident':
+            ident(transform)
+            i+=1
+        if l[i] == 'scale':
+            scale = make_scale(int(l[i+1]),int(l[i+2]),int(l[i+3]))
+            matrix_mult(scale,transform)
+            i+=4
+        if l[i] == 'translate':
+            translate = make_translate(int(l[i+1]),int(l[i+2]),int(l[i+3]))
+            matrix_mult(translate,transform)
+            i+=4
+        if l[i] == 'rotate':
+            if(l[i+1]=='x'):
+                rotX = make_rotX(int(l[i+2]))
+                matrix_mult(rotX,transform)
+            if(l[i+1]=='y'):
+                rotY = make_rotY(int(l[i+2]))
+                matrix_mult(rotY,transform)
+            if(l[i+1]=='z'):
+                rotZ = make_rotZ(int(l[i+2]))
+                matrix_mult(rotZ,transform)
+            i+=3
+        if l[i] == 'apply':
+            matrix_mult(transform,points)
+            for x in range(len(points)):
+                for y in range(4):
+                    points[x][y] = int(points[x][y])
+            i+=1
+        if l[i] == 'display':
+            clear_screen(screen)
+            draw_lines(points,screen,color)
+            display(screen)
+            i+=1
+        if l[i] == 'save':
+            clear_screen(screen)
+            draw_lines(points,screen,color)
+            display(screen)
+            save_extension(screen, l[i+1])
+            i+=2
+        else:
+            pass
